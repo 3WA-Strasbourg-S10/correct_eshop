@@ -63,7 +63,7 @@ class OrdersManager
 		// $id_users = intval($user->getId());
 		// $res = mysqli_query($this->db, "SELECT * FROM orders WHERE id_users='".$id_users."' AND status='panier' ORDER BY date LIMIT 1");
 		$request = $this->db->prepare("SELECT * FROM orders WHERE id_users=? AND status='panier' ORDER BY date LIMIT 1");
-		$request->execute([$status]);
+		$request->execute([$user->getId()]);
 		// $cart = mysqli_fetch_object($res, "Orders", [$this->db]);
 		$cart = $request->fetchObject("Orders", [$this->db]);
 		return $cart;
