@@ -17,7 +17,7 @@ class UserManager
 		// {
 		// 	$list[] = $user;
 		// }
-		$list = $res->fetchAll(PDO::FETCH_CLASS, "Category", [$this->db]);
+		$list = $res->fetchAll(PDO::FETCH_CLASS, "User", [$this->db]);
 		return $list;
 	}
 	public function findById($id)
