@@ -19,7 +19,7 @@ class CommentManager
 		// {
 		// 	$list[] = $comment;
 		// }
-		$list = $request->fetchAll(PDO::FETCH_CLASS, "Comment",[$this->db]);
+		$list = $request->fetchAll(PDO::FETCH_CLASS, "Comment", [$this->db]);
 		return $list;
 	}
 	public function findById($id) //function obligatoire findBy()
@@ -29,7 +29,7 @@ class CommentManager
 		$request = $this->db->prepare("SELECT * FROM comments WHERE id=? LIMIT 1");
 		$request->execute([$id]);
 		// $comment = mysqli_fetch_object($res, "Comment", [$this->db]); // $comment = new Comment();
-		$comment = $request->fetchObject("Comment",[$this->db]);
+		$comment = $request->fetchObject("Comment", [$this->db]);
 		return $comment;
 	}
 	// UPDATE
