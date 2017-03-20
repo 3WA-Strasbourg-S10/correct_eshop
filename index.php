@@ -4,7 +4,8 @@
 $errors = [];
 $page = "categories";
 // Live test : http://192.168.1.95/partage
-$db = mysqli_connect("192.168.1.57","animaniax","animaniax","animaniax");
+// $db = mysqli_connect("192.168.1.57","animaniax","animaniax","animaniax");
+$db = new PDO('mysql:dbname=animaniax;host=192.168.1.57', "animaniax", "animaniax");
 session_start();
 $access = ["errors", "login", "register", "categories", "create_category", "cart", "orders", "user",
 			"create_product", "contact", "search", "search_product", "search_category", "products","product"];
