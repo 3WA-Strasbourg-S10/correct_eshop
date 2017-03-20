@@ -14,12 +14,12 @@ class CommentManager
 		// $list = [];
 		// $res = mysqli_query($this->db, "SELECT * FROM comments WHERE id_product='".$id_product."' ORDER BY date DESC");
 		$request = $this->db->prepare("SELECT * FROM comments WHERE id_product=? ORDER BY date DESC");
-		$request->execute([$id]);
+		$request->execute([$product->getId()]);
 		// while ($comment = mysqli_fetch_object($res, "Comment", [$this->db]))
 		// {
 		// 	$list[] = $comment;
 		// }
-		$list = $request->fetchAll("Comment",[$this->db]);
+		$list = $request->fetchAll(PDO::FETCH_CLASS, "Comment",[$this->db]);
 		return $list;
 	}
 	public function findById($id) //function obligatoire findBy()

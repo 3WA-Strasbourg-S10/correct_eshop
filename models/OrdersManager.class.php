@@ -10,31 +10,38 @@ class OrdersManager
 	// SELECT
 	public function findAll()
 	{	
-		$list = [];
-		$res = mysqli_query($this->db, "SELECT * FROM orders ORDER BY date");
-		while ($orders = mysqli_fetch_object($res, "Orders", [$this->db]))
-		{
-			$list[] = $orders;
-		}
+		// $list = [];
+		// $res = mysqli_query($this->db, "SELECT * FROM orders ORDER BY date");
+		$res = $this->db->query("SELECT * FROM orders ORDER BY date");
+		// while ($orders = mysqli_fetch_object($res, "Orders", [$this->db]))
+		// {
+		// 	$list[] = $orders;
+		// }
+		$list = $res->fetchAll(PDO::FETCH_CLASS, "Orders", [$this->db]);
 		return $list;
 	}
 	public function findById($id)
 	{
-		$id = intval($id);
-		$res = mysqli_query($this->db, "SELECT * FROM orders WHERE id='".$id."'");
-		$orders = mysqli_fetch_object($res, "Orders", [$this->db]);
+		// $id = intval($id);
+		// $res = mysqli_query($this->db, "SELECT * FROM orders WHERE id='".$id."'");
+		// $orders = mysqli_fetch_object($res, "Orders", [$this->db]);
+		$request = $this->db->prepare("SELECT * FROM orders WHERE id=? LIMIT 1");
+		$request->execute([$id]);
+		$orders = $request->fetchObject("Orders",[$this->db]);
 		return $orders;
 	}
 	public function findByUsers(User $user)
 	{
-		$id_users = intval($user->getId());
-		$list = [];
-
-		$res = mysqli_query($this->db, "SELECT * FROM orders WHERE id_users='".$id_users."'");
-		while($order = mysqli_fetch_object($res, "Orders", [$this->db]))
-		{
-			$list[] = $order;
-		}
+		// $id_users = intval($user->getId());
+		// $list = [];
+		// $res = mysqli_query($this->db, "SELECT * FROM orders WHERE id_users='".$id_users."'");
+		$request = $this->db->prepare("SELECT * FROM orders WHERE id_users=?");
+		$request->execute([$id]);
+		// while($order = mysqli_fetch_object($res, "Orders", [$this->db]))
+		// {
+		// 	$list[] = $order;
+		// }
+		$list = $res->fetchAll(PDO::FETCH_CLASS, "Orders", [$this->db]);
 		return $list;
 	}
 	public function findByStatus($status)
